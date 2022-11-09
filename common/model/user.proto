@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "/model";
+
+import "google/protobuf/empty.proto";
+
+enum UserGender {
+  UNDEFINED = 0;
+  MALE = 1;
+  FEMALE = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string password = 3;
+  UserGender gender = 4;
+}
+
+message UserList {
+  repeated User list = 1;
+}
+
+message UserDelete{
+    string id = 2;
+}
+
+service Users {
+  rpc Register(User) returns (google.protobuf.Empty) {}
+  rpc List(google.protobuf.Empty) returns (UserList) {}
+  rpc Update(User) returns (google.protobuf.Empty) {}
+  rpc Delete(UserDelete) returns (google.protobuf.Empty) {}
+}
